@@ -1,0 +1,80 @@
+:root {
+    --forest-green: #2D5A27;
+    --slate-gray: #2F3E46;
+    --crisp-white: #FFFFFF;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--slate-gray);
+    color: var(--crisp-white);
+}
+
+/* Glassmorphism UI */
+.glass-nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    backdrop-filter: blur(15px);
+    background: var(--glass-bg);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 5%;
+}
+
+/* Reveal Animations */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: var(--transition);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hover Micro-interactions */
+.cta-btn {
+    background: var(--forest-green);
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.cta-btn:hover {
+    box-shadow: 0 0 20px rgba(45, 90, 39, 0.6);
+    transform: translateY(-3px);
+}/* Layout Fixes */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(rgba(47, 62, 70, 0.8), rgba(47, 62, 70, 0.8)), 
+                url('https://images.unsplash.com/photo-1466611653911-95282fc3656b?auto=format&fit=crop&w=1920');
+    background-size: cover;
+}
+
+.timeline-section {
+    padding: 100px 10%;
+    background: #2F3E46;
+}
+
+.milestone {
+    border-left: 2px solid var(--forest-green);
+    padding-left: 30px;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+/* Specific formatting rule: ID shortening */
+/* Ensure you use short forms for internal ID referencing (e.g., #hist instead of #history_section_v1) */

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veridian Systems | Sustainable Innovation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-mint: #F7F9F7;
+            --sage: #7D9D85;
+            --emerald: #10B981;
+            --slate: #2F3E46;
+            --white: #FFFFFF;
+            --glass: rgba(255, 255, 255, 0.95);
+            --shadow: 0 10px 30px rgba(47, 62, 70, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-mint);
+            color: var(--slate);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- Navigation --- */
+        header {
+            position: fixed; top: 0; width: 100%; padding: 1.2rem 8%;
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--glass); backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(125, 157, 133, 0.2); z-index: 1000;
+        }
+        .logo { font-weight: 700; color: var(--emerald); font-size: 1.5rem; letter-spacing: 1px; }
+        nav ul { display: flex; list-style: none; gap: 2rem; }
+        nav a { 
+            text-decoration: none; color: var(--slate); font-weight: 500;
+            position: relative; padding: 6px 0; font-size: 0.95rem;
+        }
+        nav a::after {
+            content: ''; position: absolute; bottom: 0; left: 50%;
+            width: 0; height: 2px; background: var(--emerald);
+            transition: all 0.3s ease; transform: translateX(-50%);
+        }
+        nav a:hover::after { width: 100%; }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 90vh; display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(rgba(247, 249, 247, 0.85), rgba(247, 249, 247, 0.7)),
+                        url('https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1920');
+            background-size: cover; background-position: center; text-align: center;
+        }
+        .hero h1 { font-size: 3.8rem; margin-bottom: 1rem; color: var(--slate); }
+        .hero p { max-width: 600px; margin: 0 auto; font-size: 1.2rem; color: #4A5D66; }
+
+        /* --- Timeline Fix (Z-Index) --- */
+        .section-padding { padding: 100px 8%; }
+        .timeline { position: relative; max-width: 900px; margin: 0 auto; }
+        .timeline::after {
+            content: ''; position: absolute; width: 2px; background: #CBD5E1; /* Light Sage Grey Line */
+            top: 0; bottom: 0; left: 50%; margin-left: -1px; z-index: 1;
+        }
+        .milestone {
+            position: relative; width: 50%; padding: 2rem; z-index: 5;
+            opacity: 0; transform: translateY(30px); transition: 0.8s;
+        }
+        .milestone.left { left: 0; text-align: right; }
+        .milestone.right { left: 50%; text-align: left; }
+        
+        .milestone p,h3{
+            margin-right: 20px;
+            margin-left: 20px;
+        }
+        .year-bubble {
+            width: 70px; height: 70px; 
+            background: var(--white); border: 3px solid var(--emerald);
+            color: var(--emerald); border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 1.1rem;
+            position: absolute; top: 15px; 
+            z-index: 20; /* CRITICAL: High Z-Index ensures visibility over line */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            
+        }
+        .left .year-bubble { right: -35px; }
+        .right .year-bubble { left: -35px; }
+
+        /* --- Strategic Partners (Marquee 1) --- */
+        .partners-section { background: var(--white); padding: 40px 0; border-top: 1px solid #E2E8F0; border-bottom: 1px solid #E2E8F0; overflow: hidden; }
+        .partner-track { display: flex; gap: 4rem; animation: scrollLeft 30s linear infinite; white-space: nowrap; }
+        .partner-logo { font-size: 1.5rem; font-weight: 700; color: #94A3B8; text-transform: uppercase; letter-spacing: 1px; }
+        
+        @keyframes scrollLeft { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+
+        /* --- Dual-Opposite Marquee (Gallery) --- */
+        .gallery-section { padding: 60px 0; background: var(--slate); overflow: hidden; }
+        .gallery-row { display: flex; gap: 20px; white-space: nowrap; margin-bottom: 2rem; }
+        
+        /* Row 1: Images (Left to Right) */
+        .row-images { animation: scrollRight 45s linear infinite; }
+        .row-images img { width: 350px; height: 220px; object-fit: cover; border-radius: 8px; opacity: 0.9; }
+
+        /* Row 2: Text (Right to Left) */
+        .row-text { animation: scrollLeftText 30s linear infinite; }
+        .row-text h2 { font-size: 5rem; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.2); margin: 0; padding-right: 50px; }
+
+        @keyframes scrollRight { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+        @keyframes scrollLeftText { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+        /* --- Cards & Grid --- */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 3rem; }
+        .card { 
+            background: var(--white); padding: 2.5rem; border-radius: 12px; 
+            box-shadow: var(--shadow); border: 1px solid #F1F5F9;
+            transition: 0.3s;
+        }
+        .card:hover { transform: translateY(-5px); border-color: var(--sage); }
+
+        /* --- Footer --- */
+        footer { background: var(--white); border-top: 1px solid #E2E8F0; padding: 60px 8%; color: var(--slate); }
+        .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        #hq-clock { font-family: monospace; color: var(--emerald); font-weight: 600; margin-top: 10px; font-size: 1.1rem; }
+
+        .btn-cta {
+            display: inline-block; padding: 1rem 2.5rem; background: var(--emerald);
+            color: white; text-decoration: none; font-weight: 600; border-radius: 6px;
+            transition: 0.3s; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+        .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4); }
+
+        /* Animation State */
+        .reveal.active { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">VERIDIAN</div>
+        <nav>
+            <ul>
+                <li><a href="#history">Timeline</a></li>
+                <li><a href="#global">Presence</a></li>
+                <li><a href="#insights">Insights</a></li>
+                <li><a href="#gallery">Impact</a></li>
+                <li><a href="hiring.html">Career</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="reveal">
+            <h1>Engineering for <span style="color: var(--emerald);">Equilibrium</span></h1>
+            <p style="margin-bottom: 2rem; margin-top: 1rem;">Deploying AI-driven renewable grids to stabilize the global carbon budget.</p>
+            <a href="hiring.html" target="_blank" class="btn-cta">Join Our Mission</a>
+        </div>
+    </section>
+
+    <div class="partners-section">
+        <div class="partner-track">
+            <span class="partner-logo">Global Eco &bull;</span>
+            <span class="partner-logo">Tesla Energy &bull;</span>
+            <span class="partner-logo">Zurich Bio-Labs &bull;</span>
+            <span class="partner-logo">Nordic Wind &bull;</span>
+            <span class="partner-logo">Sequoia Carbon &bull;</span>
+            <span class="partner-logo">Veridian Dynamics &bull;</span>
+            <span class="partner-logo">Global Eco &bull;</span>
+            <span class="partner-logo">Tesla Energy &bull;</span>
+            <span class="partner-logo">Zurich Bio-Labs &bull;</span>
+        </div>
+    </div>
+
+    <section id="history" class="section-padding">
+        <h2 style="text-align: center; margin-bottom: 4rem;">A Decade of Restoration</h2>
+        <div class="timeline">
+            <div class="milestone left reveal">
+                <div class="year-bubble">2015</div>
+                <h3>Zurich Genesis</h3>
+                <p>Veridian is founded to commercialize kinetic carbon capture systems for heavy industry.</p>
+            </div>
+            <div class="milestone right reveal">
+                <div class="year-bubble">2021</div>
+                <h3>Grid Integration</h3>
+                <p>Launch of the "V-Node" smart controller, optimizing solar output by 34% across the EU.</p>
+            </div>
+            <div class="milestone left reveal">
+                <div class="year-bubble">2026</div>
+                <h3>Planetary Scale</h3>
+                <p>Achieving net-zero operations across 5 continents via decentralized energy clouds.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="global" class="section-padding" style="background: white;">
+        <h2 style="text-align: center;">Global Operations</h2>
+        <div class="grid">
+            <div class="card reveal"><strong>Norway</strong><br><span style="color:var(--sage)">Offshore Wind Hub</span></div>
+            <div class="card reveal"><strong>India</strong><br><span style="color:var(--sage)">Solar Fabrication</span></div>
+            <div class="card reveal"><strong>Brazil</strong><br><span style="color:var(--sage)">Biomass Research</span></div>
+            <div class="card reveal"><strong>Canada</strong><br><span style="color:var(--sage)">Arctic Sequestration</span></div>
+            <div class="card reveal"><strong>Japan</strong><br><span style="color:var(--sage)">Grid AI Labs</span></div>
+        </div>
+    </section>
+
+    <section id="gallery" class="gallery-section">
+        <div class="gallery-row row-images">
+            <img src="images/1.jpg" alt="Eco Tech">
+            <img src="images/2.jpg" alt="Solar">
+            <img src="images/3.jpg" alt="Wind">
+            <img src="images/4.jpg" alt="Lab">
+            <img src="images/1.jpg" alt="Eco Tech"> <img src="images/2.jpg" alt="Solar">
+        </div>
+        <div class="gallery-row row-text">
+            <h2>VERIDIAN SYSTEMS</h2>
+            <h2>VERIDIAN SYSTEMS</h2>
+            <h2>VERIDIAN SYSTEMS</h2>
+        </div>
+    </section>
+
+    <section id="insights" class="section-padding">
+        <h2 style="text-align: center;">Strategic Insights</h2>
+        <div class="grid">
+            <div class="card reveal">
+                <h4 style="color: var(--emerald);">The Hydrogen Shift</h4>
+                <p style="font-size: 0.9rem; margin-top: 10px;">Why green hydrogen is replacing lithium in long-haul logistics.</p>
+            </div>
+            <div class="card reveal">
+                <h4 style="color: var(--emerald);">Microbial Capture</h4>
+                <p style="font-size: 0.9rem; margin-top: 10px;">Engineering algae strains that consume 400x more CO2 than trees.</p>
+            </div>
+            <div class="card reveal">
+                <h4 style="color: var(--emerald);">The 2026 Accord</h4>
+                <p style="font-size: 0.9rem; margin-top: 10px;">Navigating the new global carbon tax framework for enterprise.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <h3>Veridian HQ</h3>
+                <p>Bahnhofstrasse 101, Zurich, Switzerland</p>
+                <div id="hq-clock">Syncing Time...</div>
+            </div>
+            <div style="text-align: right;">
+                <p><strong>Contact</strong></p>
+                <p>+41 44 123 4567</p>
+                <p>contact@veridiansys.com</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for Fade-ins
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Dual-Format Live Clock
+        function updateClock() {
+            const now = new Date();
+            const time12 = now.toLocaleTimeString('en-US', { hour12: true });
+            const time24 = now.toLocaleTimeString('en-GB', { hour12: false });
+            document.getElementById('hq-clock').innerText = `${time12} | ${time24}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veridian Systems | Engineering a Carbon-Negative Future</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #1A1A1B;
+            --emerald: #10B981;
+            --slate: #374151;
+            --white: #FFFFFF;
+            --glass: rgba(255, 255, 255, 0.05);
+            --blur: blur(12px);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- UI: Glassmorphism Header --- */
+        header {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 1.5rem 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--glass);
+            backdrop-filter: var(--blur);
+            -webkit-backdrop-filter: var(--blur);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+
+        .logo { font-weight: 700; font-size: 1.5rem; letter-spacing: 2px; color: var(--emerald); }
+
+        nav ul { display: flex; list-style: none; gap: 2rem; }
+        nav a { text-decoration: none; color: var(--white); font-size: 0.9rem; transition: 0.3s; }
+        nav a:hover { color: var(--emerald); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1920');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 10%;
+        }
+
+        .hero h1 { font-size: 4rem; margin-bottom: 1.5rem; max-width: 900px; line-height: 1.1; }
+        .hero p { font-size: 1.2rem; color: #cbd5e1; max-width: 600px; margin-bottom: 2rem; }
+
+        .btn {
+            padding: 1rem 2rem;
+            background: var(--emerald);
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3); }
+
+        /* --- TIMELINE SECTION --- */
+        .section-padding { padding: 100px 10%; }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background: var(--slate);
+            top: 0; bottom: 0; left: 50%;
+            margin-left: -1px;
+        }
+
+        .milestone {
+            padding: 2rem;
+            position: relative;
+            width: 50%;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 0.8s ease-out;
+        }
+
+        .milestone.left { left: 0; text-align: right; }
+        .milestone.right { left: 50%; text-align: left; }
+
+        .milestone.active { opacity: 1; transform: translateY(0); }
+
+        .year-bubble {
+            width: 60px; height: 60px;
+            background: var(--emerald);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            position: absolute;
+            top: 20px;
+            z-index: 10;
+        }
+
+        .left .year-bubble { right: -30px; }
+        .right .year-bubble { left: -30px; }
+
+        .timestamp { font-size: 0.8rem; color: var(--emerald); margin-bottom: 0.5rem; }
+
+        /* --- FOUNDERS & GALLERY --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: var(--glass);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+        }
+        .card:hover { border-color: var(--emerald); }
+
+        .gallery-img {
+            width: 100%; height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.5s ease;
+        }
+        .gallery-item { overflow: hidden; border-radius: 8px; }
+        .gallery-item:hover .gallery-img { transform: scale(1.1); }
+
+        @media (max-width: 768px) {
+            .timeline::after { left: 31px; }
+            .milestone { width: 100%; text-align: left !important; padding-left: 70px; }
+            .left .year-bubble, .right .year-bubble { left: 0; }
+            .hero h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">VERIDIAN</div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#timeline">Timeline</a></li>
+                <li><a href="#founders">Founders</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <h1>Engineering a Carbon-Negative Future</h1>
+        <p>Harnessing AI-driven resource optimization and next-gen sequestration to restore the global climate balance.</p>
+        <a href="#timeline" class="btn">View Our Evolution</a>
+    </section>
+
+    <section id="timeline" class="section-padding">
+        <h2 style="text-align: center; margin-bottom: 4rem;">12 Years of Eco-Innovation</h2>
+        <div class="timeline">
+            <div class="milestone left">
+                <div class="year-bubble">2014</div>
+                <div class="timestamp">09:00 AM | 09:00</div>
+                <h3>Founding & Seed</h3>
+                <p>Veridian Systems launches in Zurich with a focus on high-yield microbial carbon capture.</p>
+            </div>
+            <div class="milestone right">
+                <div class="year-bubble">2018</div>
+                <div class="timestamp">11:30 AM | 11:30</div>
+                <h3>The First Quantum Solar Cell</h3>
+                <p>Breakthrough in photovoltaic efficiency, reaching 42% energy conversion in laboratory settings.</p>
+            </div>
+            <div class="milestone left">
+                <div class="year-bubble">2022</div>
+                <div class="timestamp">02:45 PM | 14:45</div>
+                <h3>IPO & Global Scale</h3>
+                <p>Listing on the Green Exchange, securing $4B for the North American Renewables Grid.</p>
+            </div>
+            <div class="milestone right">
+                <div class="year-bubble">2026</div>
+                <div class="timestamp">08:15 AM | 08:15</div>
+                <h3>Planetary Integration</h3>
+                <p>Achieved 100% decentralized energy distribution across 40+ nations via Veridian Smart-Nodes.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="founders" class="section-padding" style="background: #111;">
+        <h2 style="text-align: center;">Leadership Suite</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Dr. Aris Thorne</h3>
+                <p style="color: var(--emerald);">CEO & Chief Scientist</p>
+                <p>Former UN climate advisor specializing in kinetic sequestration and atmospheric chemistry.</p>
+            </div>
+            <div class="card">
+                <h3>Sarah Jenkins</h3>
+                <p style="color: var(--emerald);">CTO</p>
+                <p>Systems architect with a focus on decentralized power grids and AI resource management.</p>
+            </div>
+            <div class="card">
+                <h3>Marcus Vane</h3>
+                <p style="color: var(--emerald);">CSO</p>
+                <p>Lead on global ethics and circular economy integration for industrial supply chains.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="section-padding">
+        <h2 style="text-align: center; margin-bottom: 3rem;">Infrastructural Impact</h2>
+        <div class="grid">
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1466611653911-95282fc3656b?auto=format&fit=crop&w=600" class="gallery-img" alt="Turbines"></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1509391366360-fe5bb58583bb?auto=format&fit=crop&w=600" class="gallery-img" alt="Solar"></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1449156059431-787c5b7ad39c?auto=format&fit=crop&w=600" class="gallery-img" alt="Architecture"></div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Scroll Reveal Intersection Observer
+        const observerOptions = {
+            threshold: 0.25
+        };
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.milestone, .card').forEach(el => {
+            revealObserver.observe(el);
+        });
+    </script>
+</body>
+</html>
